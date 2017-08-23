@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>J.Sakamoto</Authors>
+    <Company />
+    <PackageProjectUrl>https://github.com/jsakamoto/Toolbelt.AspNetCore.MarkdownPages</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jsakamoto/Toolbelt.AspNetCore.MarkdownPages</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseUrl>https://github.com/jsakamoto/Toolbelt.AspNetCore.MarkdownPages/blob/master/LICENSE</PackageLicenseUrl>
+    <Description>Transform "text/markdown" response to HTML in ASP.NET Core application.</Description>
+    <Copyright>Copyright © 2017 J.Sakamoto, Mozilla Public License 2.0</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.6\Toolbelt.AspNetCore.MarkdownPages.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.6\Toolbelt.AspNetCore.MarkdownPages.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Markdown" Version="2.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.2" />
+  </ItemGroup>
+
+</Project>
