@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolbelt.AspNetCore.MarkdownPages", "Toolbelt.AspNetCore.MarkdownPages\Toolbelt.AspNetCore.MarkdownPages.csproj", "{9BF0690B-3D94-4E41-A892-E29DD1D0C7AB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{706768C2-68DA-4CE9-B040-A0A3A19CD1F7}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
