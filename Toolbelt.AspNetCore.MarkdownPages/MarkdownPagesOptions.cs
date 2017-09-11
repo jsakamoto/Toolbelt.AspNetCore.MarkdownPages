@@ -12,7 +12,9 @@ namespace Toolbelt.AspNetCore.MarkdownPages
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />"
         };
 
-        public List<string> CssLinks { get; set; } = new List<string>();
+        public List<string> CssLinks { get; set; } = new List<string> {
+            "//jsakamoto.github.io/Toolbelt.AspNetCore.MarkdownPages/css/theme/default/style.css"
+        };
 
         public bool EnableAutoLink { get; set; } = true;
     }
