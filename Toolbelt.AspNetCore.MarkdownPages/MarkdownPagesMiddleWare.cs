@@ -15,15 +15,29 @@ namespace Toolbelt.AspNetCore.MarkdownPages
 
         public MarkdownPagesOptions Options { get; }
 
-        private string HtmlCssLink { get; set; }
+        private string HtmlTextBegining { get; set; }
 
         public MarkdownPagesMiddleWare(MarkdownPagesOptions options, RequestDelegate next)
         {
             this.Options = options;
             _next = next;
 
+            var htmlTextBuilder = new StringBuilder();
+            htmlTextBuilder.Append(
+                "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n");
+
+            options.MetaTags.ForEach(metaTag => htmlTextBuilder.AppendLine(metaTag));
+
             var cssLinks = options.CssLinks.Select(url => $"<link rel=\"stylesheet\" href=\"{url}\" />");
-            this.HtmlCssLink = string.Join("\n", cssLinks);
+            foreach (var cssLink in cssLinks) htmlTextBuilder.AppendLine(cssLink);
+
+            htmlTextBuilder.Append(
+                "</head>\n" +
+                "<body>\n");
+
+            this.HtmlTextBegining = htmlTextBuilder.ToString();
         }
 
         public async Task Invoke(HttpContext context)
@@ -37,15 +51,12 @@ namespace Toolbelt.AspNetCore.MarkdownPages
                 var markdownText = filterStream.GetCapturedContent();
                 var htmlMainContents = Markdown.Transform(markdownText);
 
-                var htmlTextBuilder = new StringBuilder();
-                htmlTextBuilder.AppendLine("<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\"/>");
-                if (this.HtmlCssLink != "")
-                {
-                    htmlTextBuilder.AppendLine(this.HtmlCssLink);
-                }
-                htmlTextBuilder.Append("</head>\n<body>\n" + htmlMainContents + "</body>\n</html>");
-
-                var htmlBytes = Encoding.UTF8.GetBytes(htmlTextBuilder.ToString());
+                var htmlText =
+                    this.HtmlTextBegining +
+                    htmlMainContents +
+                    "\n</body>" +
+                    "\n</html>";
+                var htmlBytes = Encoding.UTF8.GetBytes(htmlText);
 
                 context.Response.ContentType = "text/html; utf-8";
                 context.Response.ContentLength = htmlBytes.Length;
