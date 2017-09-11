@@ -45,7 +45,7 @@ After that, all responses which contntent type is "text/markdown" - not only sta
 
 ### Inject custom CSS files
 
-You can inject CSS file when calling `UseMarkdownPages()` method with options.
+You can append custom CSS file when calling `UseMarkdownPages()` method with options.
 
 ```csharp
   app.UseMarkdownPages(new MarkdownPagesOptions {
@@ -55,8 +55,23 @@ You can inject CSS file when calling `UseMarkdownPages()` method with options.
       ...
     }
   });
-
 ```
+
+`CssLink` property of `MarkdownPagesOptions` object has an item that the URL of default theme style CSS file.
+
+If you want to overwrite all of CSS file links include default theme style, you can do it by creating new `List<string>` object and setting it to `CssLinks` property.
+
+```csharp
+  app.UseMarkdownPages(new MarkdownPagesOptions {
+    CssLinks = new List<string> {
+      "/path/to/css-file1.css",
+      "/path/to/css-file2.css",
+      ...
+    }
+  });
+```
+
+
 
 
 
