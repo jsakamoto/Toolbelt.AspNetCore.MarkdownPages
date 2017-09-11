@@ -13,5 +13,7 @@ namespace Toolbelt.AspNetCore.MarkdownPages
         };
 
         public List<string> CssLinks { get; } = new List<string>();
+
+        public bool EnableAutoLink { get; set; } = true;
     }
 }

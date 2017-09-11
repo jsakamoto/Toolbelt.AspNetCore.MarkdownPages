@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HeyRed.MarkdownSharp;
+using Markdig;
 using Microsoft.AspNetCore.Http;
 
 namespace Toolbelt.AspNetCore.MarkdownPages
 {
     internal class MarkdownPagesMiddleWare
     {
-        private static Markdown Markdown { get; } = new Markdown();
+        public MarkdownPipeline MarkdownPipeline { get; }
 
         private readonly RequestDelegate _next;
 
@@ -38,6 +38,12 @@ namespace Toolbelt.AspNetCore.MarkdownPages
                 "<body>\n");
 
             this.HtmlTextBegining = htmlTextBuilder.ToString();
+
+            var pipelineBuilder = new MarkdownPipelineBuilder()
+                .UsePipeTables()
+                .UseGridTables();
+            if (options.EnableAutoLink) pipelineBuilder.UseAutoLinks();
+            this.MarkdownPipeline = pipelineBuilder.Build();
         }
 
         public async Task Invoke(HttpContext context)
@@ -49,7 +55,7 @@ namespace Toolbelt.AspNetCore.MarkdownPages
             if (filterStream.Captured && context.Response.StatusCode == 200)
             {
                 var markdownText = filterStream.GetCapturedContent();
-                var htmlMainContents = Markdown.Transform(markdownText);
+                var htmlMainContents = Markdown.ToHtml(markdownText, this.MarkdownPipeline);
 
                 var htmlText =
                     this.HtmlTextBegining +
