@@ -7,7 +7,7 @@ namespace Toolbelt.AspNetCore.MarkdownPages
     public class MarkdownPagesOptions
     {
         public List<string> MetaTags { get; } = new List<string> {
-            "<meta charset=\"utf-8\"/>\n",
+            "<meta charset=\"utf-8\" />",
             "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\" />",
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />"
         };
